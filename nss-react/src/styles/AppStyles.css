@@ -5,6 +5,7 @@
   background-color: #4f76da;
   padding: 40px 100px 0px 100px;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 html,
@@ -131,10 +132,16 @@ a {
   object-fit: cover;
 }
 
+.content-preview-diviewwrapper {
+  display: flex;
+  justify-content: start;
+}
+
 .content-preview-content-wrapper {
   flex: 1;
   display: flex;
-  align-items: start;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 3px 10px 0px 10px;
   flex-direction: column;
 }
@@ -153,4 +160,25 @@ a {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.content-footer-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.content-footer-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-footer-content {
+  color: black;
+  font-size: 8px;
+}
+.content-footer-bottomline {
+  width: 100%;
+  background-color: black;
+  height: 2px;
+  margin-bottom: 8px;
+  margin-top: 2px;
 }
