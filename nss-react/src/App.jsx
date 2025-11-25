@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import "./styles/AppStyles.css";
 import HeaderDesktop from "./widgets/HeaderDesktop";
 import MainDesktop from "./widgets/MainDesktop";
+import FooterDesktop from "./widgets/FooterDesktop";
 
 export default function App() {
   /* 모바일 */
@@ -24,6 +25,7 @@ export default function App() {
     <div className="app-container">
       {screenSize === "mobile" ? <HeaderDesktop /> : <HeaderDesktop />}
       {screenSize === "mobile" ? <MainDesktop /> : <MainDesktop />}
+      {screenSize === "mobile" ? <FooterDesktop /> : <FooterDesktop />}
     </div>
   );
 }

@@ -182,3 +182,35 @@ a {
   margin-bottom: 8px;
   margin-top: 2px;
 }
+
+.footer-wrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.footer-line {
+  background-color: white;
+  height: 2px;
+  width: 100%;
+}
+
+.footer-title {
+  margin: 20px 0px 2px 0px;
+  color: white;
+  font-size: 26px;
+}
+
+.footer-desc {
+  font-weight: 500;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: white;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.footer-space {
+  height: 40px;
+}
