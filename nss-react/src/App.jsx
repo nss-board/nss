@@ -1,15 +1,29 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import Header from "Header";
+import { useState, useEffect } from "react";
 
-function App() {
+import "./styles/AppStyles.css";
+import HeaderDesktop from "./widgets/HeaderDesktop";
+import MainDesktop from "./widgets/MainDesktop";
+
+export default function App() {
+  /* 모바일 */
+  const getScreenSize = () => {
+    const width = window.innerWidth;
+    if (width <= 480) return "mobile";
+    return "desktop";
+  };
+
+  const [screenSize, setScreenSize] = useState(getScreenSize());
+
+  useEffect(() => {
+    const handleResize = () => setScreenSize(getScreenSize());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <>
-      <Header />
-    </>
+    <div className="app-container">
+      {screenSize === "mobile" ? <HeaderDesktop /> : <HeaderDesktop />}
+      {screenSize === "mobile" ? <MainDesktop /> : <MainDesktop />}
+    </div>
   );
 }
-
-export default App;

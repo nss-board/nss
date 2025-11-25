@@ -1,38 +1,62 @@
+import { sequelize, connectDB } from "./config/mysql.js";
+
 const passport = require("passport");
 
-const multer = require("multer");
-const cors = require("cors");
-const fs = require("fs");
-const bodyParser = require("body-parser");
-const db = require("./config/mysql.js");
+export default function login(req, res) {
+  passport.authenticate("local", { session: false }, (err, user, info) => {
+    try {
+      if (err) {
+        return next(err.message);
+      }
+      if (!user) {
+        return res.status(401).json({ message: info.message });
+      }
+      const payload = { user_id: user._id };
+      const secretKey = process.env.JWT_SECRET_KEY;
+      const expiresIn = process.env.JWT_ACCESS_TOKEN_EXPIRES;
+      const token = generateToken(payload, secretKey, expiresIn);
 
-const conn = db.init();
+      req.user = user;
+      req.token = token;
 
-passport.use(
-  new LocalStrategy(async (입력한아이디, 입력한비번, cb) => {
-    /*
-    var result = 
-    db에서 아이디에 해당하는 비번 불러오는 코드    
-   */
+      res.cookie("access_token", token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "Strict",
+        maxAge: process.env.JWT_ACCESS_TOKEN_EXPIRES,
+      });
 
-    if (!result) {
-      return cb(null, false, { message: "아이디 DB에 없음" });
+      // res.status, message로 알잘딱 보내면 됨  //응
+      res.status(200).json({ message: "로그인 완료" });
+    } catch (error) {
+      console.log(error);
     }
-    if (result.password == 입력한비번) {
-      return cb(null, result);
-    } else {
-      return cb(null, false, { message: "비번불일치" });
-    }
-  })
-);
-
-async function login(req, res, next) {
-  passport.authenticate("local", (error, user, info) => {
-    if (error) return res.status(500).json(error);
-    if (!user) return res.status(401).json(info.message);
-    req.logIn(user, (err) => {
-      if (err) return next(err);
-      res.redirect("/");
-    });
-  })(req, res, next);
+  })(req, res);
 }
+
+const local = new LocalStrategy(
+  {
+    usernameField: "email",
+    passwordField: "password",
+  },
+
+  async (email, password, done) => {
+    try {
+      const user = await db.findOne(email);
+      if (!user) {
+        return done(null, false, {
+          message: "Incorrect email or password",
+        });
+      }
+      const result = await bycrypt.compare(password, user.password);
+      if (!result) {
+        return done(null, false, {
+          message: "incorrect email or password",
+        });
+      }
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    }
+  }
+);
