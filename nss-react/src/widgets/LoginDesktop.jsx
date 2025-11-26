@@ -1,4 +1,6 @@
 import HeaderDesktop from "./HeaderDesktop";
+import { Link } from "react-router-dom";
+import { axios } from "axios";
 
 export default function LoginDesktop() {
   return (
@@ -16,11 +18,20 @@ export default function LoginDesktop() {
               <input type="text" />
             </div>
             <div className="login-footer-wrapper">
-              <div className="no-account-wrapper">
-                <div className="no-accout-text">계정이 없으신가요?</div>
-                <div className="no-account-underline" />
+              <Link to="/register">
+                <div className="no-account-wrapper">
+                  <div className="no-accout-text">계정이 없으신가요?</div>
+                  <div className="no-account-underline" />
+                </div>
+              </Link>
+              <div
+                className="login-button-on-loginpage"
+                onClick={() => {
+                  axios.get;
+                }}
+              >
+                로그인
               </div>
-              <div className="login-button-on-loginpage">로그인</div>
             </div>
           </div>
         </div>

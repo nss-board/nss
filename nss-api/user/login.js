@@ -4,7 +4,9 @@ import pkg from "passport";
 import passport from "../user/strategy.js";
 import { Strategy as LocalStrategy } from "passport-local";
 
-export default function login(req, res, next) {
+import { sign, refresh, verify, refreshVerify } from "./jwt-util.js";
+
+export function login(req, res, next) {
   passport.authenticate("local", { session: false }, (err, user, info) => {
     try {
       if (err) {
@@ -13,16 +15,21 @@ export default function login(req, res, next) {
       if (!user) {
         return res.status(401).json({ message: info.message });
       }
-      const payload = { user_id: user._id };
-      const secretKey = process.env.JWT_SECRET_KEY;
-      const expiresIn = process.env.JWT_ACCESS_TOKEN_EXPIRES;
-      const token = JWT.sign(payload, secretKey);
 
-      res.cookie("access_token", token, {
+      const accessToken = sign(user);
+      const refreshToken = refresh();
+
+      res.cookie("access_token", accessToken, {
         httpOnly: true,
         secure: false,
         sameSite: "Strict",
-        maxAge: process.env.JWT_ACCESS_TOKEN_EXPIRES,
+        MaxAge: process.env.JWT_ACCESS_TOKEN_EXPIRES,
+      });
+      res.cookie("refresh_token", refreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "Strict",
+        MaxAge: process.env.JWT_REFRESH_TOKEN_EXPIRES,
       });
 
       res.status(200).json({ message: "로그인 완료" });
@@ -30,4 +37,8 @@ export default function login(req, res, next) {
       console.log(error);
     }
   })(req, res, next);
+}
+
+export function verifyUser(req, res, next) {
+  console.log(verify(req.body.token).ok);
 }

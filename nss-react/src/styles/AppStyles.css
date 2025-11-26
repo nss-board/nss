@@ -293,7 +293,7 @@ input {
 }
 .login-button-on-loginpage {
   width: 128px;
-  height: 55px;
+  height: 50px;
   background-color: white;
   color: black;
   border-radius: 20px;
@@ -301,4 +301,154 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.no-account-wrapper {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.no-account-wrapper:hover {
+  color: #4f76da;
+}
+
+.no-account-wrapper a,
+.no-account-wrapper Link,
+.no-account-wrapper {
+  text-decoration: none !important;
+}
+
+/* 밑줄도 색 바꾸고 싶으면 */
+.no-account-underline {
+  width: 100%;
+  height: 2px;
+  background-color: black;
+}
+
+.no-account-wrapper:hover .no-account-underline {
+  background-color: #4f76da;
+}
+
+.register-page-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-page {
+  width: 60%;
+  height: 86%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  margin-bottom: 40px;
+  align-items: center;
+  justify-content: center;
+}
+.register-page-innerwrapper {
+  width: 86%;
+  height: 80%;
+}
+.register-title {
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+.register-label {
+  font-size: 26px;
+  white-space: nowrap;
+}
+.register-name-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.register-input {
+  width: 300px;
+}
+.register-mail-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.register-mail-confirm-button {
+  background-color: white;
+  border-radius: 20px;
+  border: 2px solid black;
+  width: 150px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "YidStreet";
+  font-size: 14px;
+  font-weight: 700;
+}
+.register-phone-confirm-button {
+  background-color: white;
+  border-radius: 20px;
+  border: 2px solid black;
+  width: 136px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "YidStreet";
+  font-size: 14px;
+  font-weight: 700;
+}
+.register-password-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.register-phone-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.register-verify-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.register-buttons-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.register-buttons-back {
+  background-color: white;
+  border-radius: 15px;
+  border: 2px solid black;
+  width: 102px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+.register-buttons-register {
+  background-color: white;
+  border-radius: 15px;
+  border: 2px solid black;
+  width: 127px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
 }

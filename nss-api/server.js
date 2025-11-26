@@ -1,4 +1,4 @@
-import login from "./user/login.js";
+import { login, verifyUser } from "./user/login.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -28,6 +28,8 @@ app.post("/123", async (req, res) => {
 app.post("/user/login", async (req, res) => {
   console.log(req.body);
   login(req, res);
+  console.log("1");
+  verifyUser(req, res);
 });
 app.post("/user/signup", async (req, res) => {
   signup(req, res);

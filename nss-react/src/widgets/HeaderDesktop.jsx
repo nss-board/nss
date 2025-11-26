@@ -4,7 +4,9 @@ export default function HeaderDesktop({}) {
   return (
     <div className="header-wrapper-for-line">
       <div className="header-wrapper">
-        <div className="header-logo">NSS</div>
+        <Link to="/">
+          <div className="header-logo">NSS</div>
+        </Link>
         <div className="header-right-handle-wrapper">
           <img src="/search.svg" className="header-searchicon" />
           <Link to="/login">

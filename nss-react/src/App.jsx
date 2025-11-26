@@ -6,6 +6,7 @@ import HeaderDesktop from "./widgets/HeaderDesktop";
 import MainDesktop from "./widgets/MainDesktop";
 import FooterDesktop from "./widgets/FooterDesktop";
 import LoginDesktop from "./widgets/LoginDesktop";
+import RegisterDesktop from "./widgets/RegisterDesktop";
 
 export default function App() {
   /* 모바일 */
@@ -40,6 +41,18 @@ export default function App() {
         element={
           <div className="app-container">
             {screenSize === "mobile" ? <LoginDesktop /> : <LoginDesktop />}
+          </div>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <div className="app-container">
+            {screenSize === "mobile" ? (
+              <RegisterDesktop />
+            ) : (
+              <RegisterDesktop />
+            )}
           </div>
         }
       />
