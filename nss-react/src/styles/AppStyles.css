@@ -214,3 +214,91 @@ a {
 .footer-space {
   height: 40px;
 }
+
+.LoginPageWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.login-page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.login-form-wrapper {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.login-page {
+  background-color: white;
+  width: 600px;
+  height: 420px;
+  border-radius: 20px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.id-blank-wrapper {
+  width: 100%;
+  height: 116px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+.password-blank-wrapper {
+  width: 100%;
+  height: 116px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.login-label {
+  color: black;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+input {
+  background-color: white;
+  border: none;
+  border-bottom: 2px solid black;
+  border-top: 0px;
+  border-radius: 0px;
+  font-weight: bold;
+  outline: 0;
+  padding-left: 0px;
+  color: black;
+  width: 100%;
+  font-size: 26px;
+}
+.login-footer-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.no-account-text {
+  color: black;
+  font-size: 20px;
+}
+.no-account-underline {
+  width: 100%;
+  height: 1.5px;
+  background-color: black;
+}
+.login-button-on-loginpage {
+  width: 128px;
+  height: 55px;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

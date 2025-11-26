@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./styles/AppStyles.css";
 import HeaderDesktop from "./widgets/HeaderDesktop";
 import MainDesktop from "./widgets/MainDesktop";
 import FooterDesktop from "./widgets/FooterDesktop";
+import LoginDesktop from "./widgets/LoginDesktop";
 
 export default function App() {
   /* 모바일 */
@@ -22,10 +24,25 @@ export default function App() {
   }, []);
 
   return (
-    <div className="app-container">
-      {screenSize === "mobile" ? <HeaderDesktop /> : <HeaderDesktop />}
-      {screenSize === "mobile" ? <MainDesktop /> : <MainDesktop />}
-      {screenSize === "mobile" ? <FooterDesktop /> : <FooterDesktop />}
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div className="app-container">
+            {screenSize === "mobile" ? <HeaderDesktop /> : <HeaderDesktop />}
+            {screenSize === "mobile" ? <MainDesktop /> : <MainDesktop />}
+            {screenSize === "mobile" ? <FooterDesktop /> : <FooterDesktop />}
+          </div>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <div className="app-container">
+            {screenSize === "mobile" ? <LoginDesktop /> : <LoginDesktop />}
+          </div>
+        }
+      />
+    </Routes>
   );
 }
