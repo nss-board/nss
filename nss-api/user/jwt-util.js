@@ -1,8 +1,8 @@
 // jwt-util.js
-const { promisify } = require("util");
-const jwt = require("jsonwebtoken");
-const redisClient = require("./redis");
 const secret = process.env.SECRET;
+
+import promisify from "util";
+import jwt from "jsonwebtoken";
 
 module.exports = {
   sign: (user) => {
