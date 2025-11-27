@@ -564,3 +564,10 @@ input {
   font-weight: 600;
   font-family: "Pretendard";
 }
+.article-page-comment-empty {
+  width: 100%;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 70px;
+}

@@ -5,7 +5,7 @@ import cors from "cors";
 import express from "express";
 
 import passport from "./user/strategy.js";
-import axios from "axios"
+import axios from "axios";
 
 const app = express();
 app.use(cookieParser());
@@ -14,31 +14,55 @@ app.use(passport.initialize());
 app.use(express.json());
 
 
-app.get("/user/signup/sms", (res, req)=>{
+
+async function sendSMS(phone) {
+
+  const serviceId = 
+  const timestamp = 
+  const accessKey = 
+  const signature = 
+
+
+
+
+  const res = await fetch(`https://sens.apigw.ntruss.com/sms/v2/services/${serviceId}/messages`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-ncp-apigw-timestamp": timestamp,
+      "x-ncp-iam-access-key": accessKey,
+      "x-ncp-apigw-signature-v2": signature,
+    },
+    body: {
+      type: "SMS",
+      contentType: "COMM",
+      countryCode: "82",
+      from: "01052866223",
+      subject: "[NSS]",
+      content: `인증번호는 ${verifyNumber} 입니다.`,
+      messages: [
+        {
+          to: `${phone}`,
+          // subject: "개별 메세지 제목",
+          // content: "개별 메세지 내용",
+        },
+      ],
+    },
+  });
+
+  const data = await res.json();
+  console.log(data);
+}
+
+app.get("/user/signup/sms", (res, req) => {
   var clientNumber = res.body.clientNumber;
-  axios.post("https://sens.apigw.ntruss.com/sms/v2", {header: 
+  sendSMS(clientNumber);
 
+ 
 
-  {
-
-    'Content-Type': "application/json; charset=utf-8",
-'x-ncp-apigw-timestamp': {Timestamp},
-'x-ncp-iam-access-key': {Sub Account Access Key},
-'x-ncp-apigw-signature-v2': {API Gateway Signature},
-  
-
-  }
-
-  
-  
-  
-  
-  , body: })
    
-})
-
-
-
+  
+});
 
 app.use(
   cors({

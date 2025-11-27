@@ -55,20 +55,32 @@ export default function ArticleDesktop() {
           {/* 좋아요 변경 처리 필요 (서버 업로드) */}
         </div>
         <div className="aritlce-page-comment-wrapper">
-          <div className="article-page-comment-header">
-            <div className="article-page-comment-title">댓글</div>
-            <div className="article-page-comment-title-underline" />
-          </div>
-          {post.comments.map((comment, index) => (
-            <div key={index} className="article-page-comment-content-wrapper">
-              <div className="article-page-comment-author">
-                {comment.writer}
-              </div>
-              <div className="article-page-comment-content">
-                {comment.content}
-              </div>
+          <div className="aritlce-page-comment-wrapper">
+            <div className="article-page-comment-header">
+              <div className="article-page-comment-title">댓글</div>
+              <div className="article-page-comment-title-underline" />
             </div>
-          ))}
+
+            {post.comments.length === 0 ? (
+              <div className="article-page-comment-empty">
+                아직 댓글이 없습니다.
+              </div>
+            ) : (
+              post.comments.map((comment, index) => (
+                <div
+                  key={index}
+                  className="article-page-comment-content-wrapper"
+                >
+                  <div className="article-page-comment-author">
+                    {comment.writer}
+                  </div>
+                  <div className="article-page-comment-content">
+                    {comment.content}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>
