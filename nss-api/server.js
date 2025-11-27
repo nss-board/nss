@@ -5,12 +5,40 @@ import cors from "cors";
 import express from "express";
 
 import passport from "./user/strategy.js";
+import axios from "axios"
 
 const app = express();
 app.use(cookieParser());
 app.use(passport.initialize());
 
 app.use(express.json());
+
+
+app.get("/user/signup/sms", (res, req)=>{
+  var clientNumber = res.body.clientNumber;
+  axios.post("https://sens.apigw.ntruss.com/sms/v2", {header: 
+
+
+  {
+
+    'Content-Type': "application/json; charset=utf-8",
+'x-ncp-apigw-timestamp': {Timestamp},
+'x-ncp-iam-access-key': {Sub Account Access Key},
+'x-ncp-apigw-signature-v2': {API Gateway Signature},
+  
+
+  }
+
+  
+  
+  
+  git commit
+  , body: })
+   
+})
+
+
+
 
 app.use(
   cors({

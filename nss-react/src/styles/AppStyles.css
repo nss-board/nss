@@ -463,7 +463,6 @@ input {
 }
 .article-page-wrapper {
   width: 100%;
-  height: 100%;
   background-color: white;
   margin-top: 20px;
   border-radius: 20px 20px 0px 0px;
@@ -534,4 +533,34 @@ input {
 .article-page-heart-number {
   font-size: 26px;
   margin-right: 0px;
+}
+.aritlce-page-comment-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  width: 100%;
+}
+.article-page-comment-header {
+  padding-bottom: 40px;
+}
+.article-page-comment-title {
+  font-size: 50px;
+}
+.article-page-comment-title-underline {
+  width: 100%;
+  background-color: black;
+  height: 2px;
+}
+
+.article-page-comment-content-wrapper {
+  margin-bottom: 14px;
+}
+.article-page-comment-author {
+  font-size: 30px;
+}
+.article-page-comment-content {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Pretendard";
 }
