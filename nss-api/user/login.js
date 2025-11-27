@@ -19,12 +19,15 @@ export function login(req, res, next) {
       const accessToken = sign(user);
       const refreshToken = refresh();
 
+      console.log("aToken  " + accessToken);
+
       res.cookie("access_token", accessToken, {
         httpOnly: true,
         secure: false,
         sameSite: "Strict",
         MaxAge: process.env.JWT_ACCESS_TOKEN_EXPIRES,
       });
+
       res.cookie("refresh_token", refreshToken, {
         httpOnly: true,
         secure: false,
@@ -39,6 +42,7 @@ export function login(req, res, next) {
   })(req, res, next);
 }
 
-export function verifyUser(req, res, next) {
-  console.log(verify(req.body.token).ok);
+export function verifyUser(req, res) {
+  console.log("test", req.cookies);
+  console.log(verify(req.cookies.access_token).ok);
 }

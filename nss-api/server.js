@@ -7,16 +7,26 @@ import express from "express";
 import passport from "./user/strategy.js";
 
 const app = express();
+app.use(cookieParser());
 app.use(passport.initialize());
 
 app.use(express.json());
-app.use(cookieParser());
+
 app.use(
   cors({
-    origin: "*",
-    credential: "true",
+    origin: "http://192.168.0.20:5173",
+    credentials: true,
   })
 );
+
+app.get("/article/list", (res, req) => {
+  //{id, writer, createdat, title, content, thumbnail, likes, comments[]}
+
+  articleList = {};
+  res.json(articleList);
+});
+
+app.get("/article/write", (res, req) => {});
 
 app.listen(8080, () => {
   console.log("http://localhost:8080 에서 서버 실행중");
@@ -28,9 +38,14 @@ app.post("/123", async (req, res) => {
 app.post("/user/login", async (req, res) => {
   console.log(req.body);
   login(req, res);
-  console.log("1");
+});
+
+app.get("/user/verify", async (req, res) => {
+  console.log(req.cookies);
+  console.log("verifying");
   verifyUser(req, res);
 });
+
 app.post("/user/signup", async (req, res) => {
   signup(req, res);
 });
