@@ -9,6 +9,8 @@ export default function HeaderDesktop() {
     setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
   };
 
+  const realPosts = fetch("/api/");
+
   // 정렬
   const sortedPosts = [...dummyPosts].sort((a, b) => {
     return sortOrder === "asc"

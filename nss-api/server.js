@@ -6,6 +6,11 @@ import express from "express";
 
 import passport from "./user/strategy.js";
 import axios from "axios";
+// import loadPost from "./post/loadPost.js";
+
+//--------------------
+import { User } from "./models/User.js";
+//---------------
 
 const app = express();
 app.use(cookieParser());
@@ -13,56 +18,47 @@ app.use(passport.initialize());
 
 app.use(express.json());
 
+// async function sendSMS(phone) {
 
+//   const serviceId =
+//   const timestamp =
+//   const accessKey =
+//   const signature =
 
-async function sendSMS(phone) {
+//   const res = await fetch(`https://sens.apigw.ntruss.com/sms/v2/services/${serviceId}/messages`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       "x-ncp-apigw-timestamp": timestamp,
+//       "x-ncp-iam-access-key": accessKey,
+//       "x-ncp-apigw-signature-v2": signature,
+//     },
+//     body: {
+//       type: "SMS",
+//       contentType: "COMM",
+//       countryCode: "82",
+//       from: "01052866223",
+//       subject: "[NSS]",
+//       content: `인증번호는 ${verifyNumber} 입니다.`,
+//       messages: [
+//         {
+//           to: `${phone}`,
+//           // subject: "개별 메세지 제목",
+//           // content: "개별 메세지 내용",
+//         },
+//       ],
+//     },
+//   });
 
-  const serviceId = 
-  const timestamp = 
-  const accessKey = 
-  const signature = 
+//   const data = await res.json();
+//   console.log(data);
+// }
 
+// app.get("/user/signup/sms", (res, req) => {
+//   var clientNumber = res.body.clientNumber;
+//   sendSMS(clientNumber);
 
-
-
-  const res = await fetch(`https://sens.apigw.ntruss.com/sms/v2/services/${serviceId}/messages`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-ncp-apigw-timestamp": timestamp,
-      "x-ncp-iam-access-key": accessKey,
-      "x-ncp-apigw-signature-v2": signature,
-    },
-    body: {
-      type: "SMS",
-      contentType: "COMM",
-      countryCode: "82",
-      from: "01052866223",
-      subject: "[NSS]",
-      content: `인증번호는 ${verifyNumber} 입니다.`,
-      messages: [
-        {
-          to: `${phone}`,
-          // subject: "개별 메세지 제목",
-          // content: "개별 메세지 내용",
-        },
-      ],
-    },
-  });
-
-  const data = await res.json();
-  console.log(data);
-}
-
-app.get("/user/signup/sms", (res, req) => {
-  var clientNumber = res.body.clientNumber;
-  sendSMS(clientNumber);
-
- 
-
-   
-  
-});
+// });
 
 app.use(
   cors({
@@ -73,7 +69,10 @@ app.use(
 
 app.get("/article/list", (res, req) => {
   //{id, writer, createdat, title, content, thumbnail, likes, comments[]}
+  cnt = res.body.cnt;
+  page = res.body.page;
 
+  var postList = loadPost(cnt, page);
   articleList = {};
   res.json(articleList);
 });
@@ -100,6 +99,16 @@ app.get("/user/verify", async (req, res) => {
 
 app.post("/user/signup", async (req, res) => {
   signup(req, res);
+});
+
+app.post("/test", async (req, res) => {
+  const form = req.body;
+  try {
+    const result = await User.create(form);
+    console.log(result);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 // ------------------------------- 회원가입 ---------------------------------------
