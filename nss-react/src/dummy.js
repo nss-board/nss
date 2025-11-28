@@ -63,4 +63,37 @@ export const dummyPosts = [
     likes: 100,
     comments: [],
   },
+  {
+    id: 8,
+    writer: "d0yxn",
+    createdAt: "2025-11-28 16:53",
+    title: "Kenshi Yonezu - Sayonara, Mata Itsuka !",
+    content: "사요나라 마타잇츠카 - !",
+    thumbnail:
+      "https://i.ytimg.com/vi/-wb2PAx6aEs/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBYVv0tf184ds75sax4V9J_8Zxk_w",
+    likes: 20,
+    comments: [],
+  },
+  {
+    id: 9,
+    writer: "d0yxn",
+    createdAt: "2025-11-28 17:00",
+    title: "강지 (GANGG) - 내가 죽으려고 생각 한것은 (cover)",
+    content: "자살을 거꾸로 하면 살자래요",
+    thumbnail:
+      "https://i.ytimg.com/vi/L1KBaVHAdS8/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLA5vopLIAmC0FeP0E4_zFHsQ6uyRA",
+    likes: 20,
+    comments: [],
+  },
+  {
+    id: 9,
+    writer: "d0yxn",
+    createdAt: "2025-11-28 17:03",
+    title: "아카네 리제 - Drowning (cover)",
+    content: "오암드라우닝",
+    thumbnail:
+      "https://i.ytimg.com/vi/CyOAmEihVHs/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLD_VoG-9UkGEh6wuI33ncjSiQ9ZpQ",
+    likes: 20,
+    comments: [],
+  },
 ];

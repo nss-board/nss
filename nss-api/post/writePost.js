@@ -1,3 +1,5 @@
 export default function writePost(post) {
-  return;
+  //{id, writer, createdat, title, content, thumbnail, likes, comments[]}
+  //post.writer =
+  //return;
 }

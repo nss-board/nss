@@ -1,4 +1,4 @@
-import { User } from "./models/User.js";
+import { User } from "../models/User.js";
 
 export default function loadPost(count, page) {
   const n = count * (page - 1) + 1;

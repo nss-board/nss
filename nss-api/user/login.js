@@ -44,5 +44,6 @@ export function login(req, res, next) {
 
 export function verifyUser(req, res) {
   console.log("test", req.cookies);
-  console.log(verify(req.cookies.access_token).ok);
+  decoded = verify(req.cookies.access_token);
+  console.log(decoded.ok, decoded.id, decoded.role);
 }

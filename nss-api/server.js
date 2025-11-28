@@ -74,7 +74,7 @@ app.get("/post/list", (res, req) => {
   page = res.body.page;
 
   var postList = loadPost(cnt, page);
-  articleList = {};
+  articleList = { ...postList };
   res.json(articleList);
 });
 
@@ -91,6 +91,7 @@ app.post("/123", async (req, res) => {
   console.log("123");
 });
 app.post("/user/login", async (req, res) => {
+  console.log("123");
   console.log(req.body);
   login(req, res);
 });

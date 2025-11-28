@@ -8,19 +8,8 @@ export default function LoginDesktop() {
   const [pw, setPw] = useState("");
 
   const handleSubmit = async () => {
+    console.log("log");
     try {
-      // const response = await axios.post(
-      //   "http://192.168.0.20:8080/user/login",
-      //   {
-      //     email: id,
-      //     password: pw,
-      //   },
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
-      // console.log(response.data);
-
       fetch("/api/user/login", {
         method: "POST",
         credentials: "include",
@@ -31,7 +20,9 @@ export default function LoginDesktop() {
           email: id,
           password: pw,
         }),
-      }).then((res) => res.json().then((res) => console.log(res)));
+      })
+        .then((res) => res.json())
+        .then((result) => console.log(result));
     } catch (error) {
       console.error(error);
     }
