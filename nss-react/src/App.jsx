@@ -8,6 +8,7 @@ import FooterDesktop from "./widgets/FooterDesktop";
 import LoginDesktop from "./widgets/LoginDesktop";
 import RegisterDesktop from "./widgets/RegisterDesktop";
 import ArticleDesktop from "./widgets/ArticleDesktop";
+import AddDesktop from "./widgets/AddDesktop";
 
 export default function App() {
   /* 모바일 */
@@ -62,6 +63,14 @@ export default function App() {
         element={
           <div className="app-container">
             {screenSize === "mobile" ? <ArticleDesktop /> : <ArticleDesktop />}
+          </div>
+        }
+      />
+      <Route
+        path="/add"
+        element={
+          <div className="app-container">
+            {screenSize === "mobile" ? <AddDesktop /> : <AddDesktop />}
           </div>
         }
       />

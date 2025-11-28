@@ -8,6 +8,9 @@ export default function HeaderDesktop({}) {
           <div className="header-logo">NSS</div>
         </Link>
         <div className="header-right-handle-wrapper">
+          <Link to="/add">
+            <img src="/add.svg" className="header-addicon" />{" "}
+          </Link>
           <img src="/search.svg" className="header-searchicon" />
           <Link to="/login">
             <div className="header-loginbutton">로그인</div>

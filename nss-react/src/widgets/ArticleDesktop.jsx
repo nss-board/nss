@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import HeaderDesktop from "./HeaderDesktop";
 import { dummyPosts } from "../dummy";
-
 export default function ArticleDesktop() {
   const { id } = useParams();
-  const post = dummyPosts.find((p) => p.id === Number(id));
+  const foundPost = dummyPosts.find((p) => p.id === Number(id));
 
+  const [post, setPost] = useState(foundPost);
   const [liked, setLiked] = useState(false);
   const [heartCount, setHeartCount] = useState(post.likes);
+  const [comment, setComment] = useState("");
 
   const handleHeartClick = () => {
     // 이게 원래쓰던 하트 수 업데이트 코든데 어차피 서버 연결하면 다시 해야할 것 같아서 여기 바꿔주셈
@@ -20,6 +21,23 @@ export default function ArticleDesktop() {
       setLiked(false);
       setHeartCount((prev) => prev - 1);
     }
+  };
+
+  const handleAddComment = () => {
+    if (!comment.trim()) return;
+
+    const newComment = {
+      writer: "황석준", //사용자이름연결필요
+      content: comment,
+      createdAt: new Date().toISOString(),
+    };
+
+    setPost((prev) => ({
+      ...prev,
+      comments: [...prev.comments, newComment],
+    }));
+
+    setComment("");
   };
 
   if (!post) return <div>포스트를 찾을 수 없습니다</div>;
@@ -80,6 +98,26 @@ export default function ArticleDesktop() {
                 </div>
               ))
             )}
+            <div className="article-page-comment-add-wrapper">
+              <div className="article-page-comment-author">황석준</div>
+              <div className="article-page-comment-context">
+                <textarea
+                  type="text"
+                  placeholder="훈훈한 댓글 부탁드립니다."
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  className="article-page-comment-context-input"
+                />
+              </div>
+              <div className="article-page-comment-send-wrapper">
+                <img
+                  src="/send.svg"
+                  className="article-page-comment-sendicon"
+                  onClick={handleAddComment}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

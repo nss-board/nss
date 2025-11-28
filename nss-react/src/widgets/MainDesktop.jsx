@@ -20,11 +20,18 @@ export default function HeaderDesktop() {
 
   return (
     <div className="main-wrapper">
-      <div className="sort-wrapper">
-        <img src="/sort.svg" className="sort-icon" onClick={toggleSortOrder} />
-        <div className="sort-classify">
-          {sortOrder === "asc" ? "오름차순" : "내림차순"}
+      <div className="sub-header-wrapper">
+        <div className="sort-wrapper">
+          <img
+            src="/sort.svg"
+            className="sort-icon"
+            onClick={toggleSortOrder}
+          />
+          <div className="sort-classify">
+            {sortOrder === "asc" ? "오름차순" : "내림차순"}
+          </div>
         </div>
+        <div className="page-controller-wrapper"></div>
       </div>
 
       <div className="main-content-wrapper-foralign">

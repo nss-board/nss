@@ -6,7 +6,8 @@ import express from "express";
 
 import passport from "./user/strategy.js";
 import axios from "axios";
-// import loadPost from "./post/loadPost.js";
+import loadPost from "./post/loadPost.js";
+import writePost from "./post/writePost.js";
 
 //--------------------
 import { User } from "./models/User.js";
@@ -67,7 +68,7 @@ app.use(
   })
 );
 
-app.get("/article/list", (res, req) => {
+app.get("/post/list", (res, req) => {
   //{id, writer, createdat, title, content, thumbnail, likes, comments[]}
   cnt = res.body.cnt;
   page = res.body.page;
@@ -77,7 +78,10 @@ app.get("/article/list", (res, req) => {
   res.json(articleList);
 });
 
-app.get("/article/write", (res, req) => {});
+app.post("/post/write", (res, req) => {
+  post = res.body;
+  writePost(post);
+});
 
 app.listen(8080, () => {
   console.log("http://localhost:8080 에서 서버 실행중");
