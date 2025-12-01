@@ -1,7 +1,7 @@
-import { sequelize, connectDB } from "../config/mysql.js";
+import { sequelize, connectDB } from "../../config/mysql.js";
 import JWT from "jsonwebtoken";
 import pkg from "passport";
-import passport from "../user/strategy.js";
+import passport from "./strategy.js";
 import { Strategy as LocalStrategy } from "passport-local";
 
 import { sign, refresh, verify, refreshVerify } from "./jwt-util.js";
@@ -15,6 +15,8 @@ export function login(req, res, next) {
       if (!user) {
         return res.status(401).json({ message: info.message });
       }
+
+      console.log("user", user);
 
       const accessToken = sign(user);
       const refreshToken = refresh();
@@ -40,10 +42,4 @@ export function login(req, res, next) {
       console.log(error);
     }
   })(req, res, next);
-}
-
-export function verifyUser(req, res) {
-  console.log("test", req.cookies);
-  decoded = verify(req.cookies.access_token);
-  console.log(decoded.ok, decoded.id, decoded.role);
 }

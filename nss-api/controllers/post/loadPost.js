@@ -1,6 +1,9 @@
-import { User } from "../models/User.js";
+import { User } from "../../models/User.js";
 
-export default function loadPost(count, page) {
+export default function loadPost(req, res) {
+  count = req.body.cnt;
+  page = res.body.page;
+
   const n = count * (page - 1) + 1;
   const m = count * page;
 
@@ -15,5 +18,6 @@ export default function loadPost(count, page) {
 
   posts.comment = JSON.stringify(posts.comment);
 
-  return posts;
+  postList = { ...posts };
+  res.json(postList);
 }

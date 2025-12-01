@@ -1,13 +1,10 @@
-import { login, verifyUser } from "./user/login.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
 import express from "express";
+import passport from "./controllers/user/strategy.js";
 
-import passport from "./user/strategy.js";
-import axios from "axios";
-import loadPost from "./post/loadPost.js";
-import writePost from "./post/writePost.js";
+import userRouter from "./router/user.js";
+import postRouter from "./router/post.js";
 
 //--------------------
 import { User } from "./models/User.js";
@@ -18,6 +15,52 @@ app.use(cookieParser());
 app.use(passport.initialize());
 
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "http://192.168.0.20:5173",
+    credentials: true,
+  })
+);
+
+app.listen(8080, () => {
+  console.log("http://localhost:8080 에서 서버 실행중");
+});
+
+app.use("/post", postRouter);
+app.use("/user", userRouter);
+
+//-------------test------------//
+
+app.post("/test", async (req, res) => {
+  const form = req.body;
+  try {
+    const result = await User.create(form);
+    console.log(result);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+// ------------------------------- 회원가입 ---------------------------------------
+/*
+ 회원가입 기능이잖음
+ 
+그러면 ? body를 파싱해야함 (JSON)
+body 안에는
+{
+    username            <-- 사용자 본명
+    email               <-- 이메일 (로그인할땐 아이디 역할). 중복 확인 필요
+    password            <-- 비밀번호 
+    number              <-- 휴대폰 번호 
+     ㄴ SMS 인증 필요    <-- 회원가입 버튼을 누르기 전에 SMS 인증을 먼저.
+     user/signup
+}
+
+    회원가입 페이지를 분할
+    1. 이름, 이메일, 비번 <-- 중복 확인은 회원가입 버튼을 눌렀을 때 서버 측에서 처리.
+    2. SMS 인증 <-- DB쪽에 인증 여부를 넣어서 인증을 안 했을 경우엔 로그인 해도 SMS 인증 페이지로 이동.
+*/
 
 // async function sendSMS(phone) {
 
@@ -60,78 +103,3 @@ app.use(express.json());
 //   sendSMS(clientNumber);
 
 // });
-
-app.use(
-  cors({
-    origin: "http://192.168.0.20:5173",
-    credentials: true,
-  })
-);
-
-app.get("/post/list", (res, req) => {
-  //{id, writer, createdat, title, content, thumbnail, likes, comments[]}
-  cnt = res.body.cnt;
-  page = res.body.page;
-
-  var postList = loadPost(cnt, page);
-  articleList = { ...postList };
-  res.json(articleList);
-});
-
-app.post("/post/write", (res, req) => {
-  post = res.body;
-  writePost(post);
-});
-
-app.listen(8080, () => {
-  console.log("http://localhost:8080 에서 서버 실행중");
-});
-
-app.post("/123", async (req, res) => {
-  console.log("123");
-});
-app.post("/user/login", async (req, res) => {
-  console.log("123");
-  console.log(req.body);
-  login(req, res);
-});
-
-app.get("/user/verify", async (req, res) => {
-  console.log(req.cookies);
-  console.log("verifying");
-  verifyUser(req, res);
-});
-
-app.post("/user/signup", async (req, res) => {
-  signup(req, res);
-});
-
-app.post("/test", async (req, res) => {
-  const form = req.body;
-  try {
-    const result = await User.create(form);
-    console.log(result);
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-// ------------------------------- 회원가입 ---------------------------------------
-/*
- 회원가입 기능이잖음
- 
-그러면 ? body를 파싱해야함 (JSON)
-body 안에는
-{
-    username            <-- 사용자 본명
-    email               <-- 이메일 (로그인할땐 아이디 역할). 중복 확인 필요
-    password            <-- 비밀번호 
-    number              <-- 휴대폰 번호 
-     ㄴ SMS 인증 필요    <-- 회원가입 버튼을 누르기 전에 SMS 인증을 먼저.
-     user/signup
-}
-
-    회원가입 페이지를 분할
-    1. 이름, 이메일, 비번 <-- 중복 확인은 회원가입 버튼을 눌렀을 때 서버 측에서 처리.
-    2. SMS 인증 <-- DB쪽에 인증 여부를 넣어서 인증을 안 했을 경우엔 로그인 해도 SMS 인증 페이지로 이동.
-*/
