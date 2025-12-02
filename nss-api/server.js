@@ -8,6 +8,7 @@ import postRouter from "./router/post.js";
 
 //--------------------
 import { User } from "./models/User.js";
+import { Post } from "./models/Post.js";
 //---------------
 
 const app = express();
@@ -18,7 +19,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://192.168.0.20:5173",
+    origin: "http://192.168.0.13:3000",
     credentials: true,
   })
 );
@@ -32,10 +33,30 @@ app.use("/user", userRouter);
 
 //-------------test------------//
 
+import { sequelize } from "./config/mysql.js";
+import "./models/User.js";
+import "./models/Post.js";
+
+async function initDB() {
+  try {
+    await sequelize.authenticate();
+    console.log("DB 연결 성공!");
+
+    await sequelize.sync({ force: false });
+    // force: true → 기존 테이블 삭제 후 재생성
+    // force: false → 존재하지 않는 테이블만 생성
+    console.log("테이블 생성 완료!");
+  } catch (error) {
+    console.error("DB 연결 실패:", error);
+  }
+}
+
+initDB();
+
 app.post("/test", async (req, res) => {
   const form = req.body;
   try {
-    const result = await User.create(form);
+    const result = await Post.create(form);
     console.log(result);
   } catch (e) {
     console.log(e);

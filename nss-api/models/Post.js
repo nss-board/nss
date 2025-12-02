@@ -6,11 +6,11 @@ export const Post = sequelize.define("Post", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  createdAt: {
-    type: DataTypes.STRING,
-    unique: true,
-    allowNull: false,
-  },
+  // createdAt: {
+  //   type: DataTypes.STRING,
+  //   unique: true,
+  //   allowNull: false,
+  // },
   title: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -24,11 +24,11 @@ export const Post = sequelize.define("Post", {
     allowNull: true,
   },
   likes: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   comments: {
-    type: DataTypes.STRING,
+    type: DataTypes.JSON,
     allowNull: true,
   },
 });

@@ -16,6 +16,8 @@
     "passport-local": "^1.0.0",
     "react-router-dom": "^7.9.6",
     "redis": "^5.10.0",
-    "sequelize": "^6.37.7"
+    "sequelize": "^6.37.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }
