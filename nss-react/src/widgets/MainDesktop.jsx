@@ -1,22 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { dummyPosts } from "../dummy";
 
 export default function HeaderDesktop() {
   const [sortOrder, setSortOrder] = useState("asc");
+  const [sortedPosts, setSortedPosts] = useState([]);
 
   const toggleSortOrder = () => {
     setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
   };
 
-  const realPosts = fetch("/api/");
+  useEffect(() => {
+    try {
+      const articleList = fetch("/api/post/list ", {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(result);
+
+          result = [...result].sort((a, b) => {
+            return sortOrder === "asc"
+              ? new Date(a.createdAt) - new Date(b.createdAt)
+              : new Date(b.createdAt) - new Date(a.createdAt);
+          });
+
+          result = result.map((item) => {
+            const d = new Date(item.createdAt);
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, "0");
+            const day = String(d.getDate()).padStart(2, "0");
+            const hour = String(d.getHours()).padStart(2, "0");
+            const minute = String(d.getMinutes()).padStart(2, "0");
+
+            return {
+              ...item,
+              createdAt: `${year}-${month}-${day} ${hour}:${minute}`,
+            };
+          });
+
+          setSortedPosts(result);
+        });
+
+      console.log(articleList);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [sortOrder]);
 
   // 정렬
-  const sortedPosts = [...dummyPosts].sort((a, b) => {
-    return sortOrder === "asc"
-      ? new Date(a.createdAt) - new Date(b.createdAt)
-      : new Date(b.createdAt) - new Date(a.createdAt);
-  });
+
+  // setSortedPosts();
+  // [...dummyPosts].sort((a, b) => {
+  //   return sortOrder === "asc"
+  //     ? new Date(a.createdAt) - new Date(b.createdAt)
+  //     : new Date(b.createdAt) - new Date(a.createdAt);
+  // });
 
   return (
     <div className="main-wrapper">
@@ -41,11 +81,18 @@ export default function HeaderDesktop() {
               <div className="content-wrapper">
                 <div className="content-box">
                   <div className="content-preview-image-wrapper">
-                    <img
+                    {/* <img
                       src={post.thumbnail}
                       className="content-preview-image"
                       alt="thumbnail"
-                    />
+                    /> */}
+                    {post.thumbnail !== "" ? (
+                      <img
+                        src={post.thumbnail}
+                        className="content-preview-image"
+                        alt="thumbnail"
+                      />
+                    ) : null}
                   </div>
                   <div className="content-preview-content-wrapper">
                     <div className="content-preview-dividewrapper">

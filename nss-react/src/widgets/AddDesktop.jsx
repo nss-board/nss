@@ -1,46 +1,51 @@
 import { dummyPosts } from "../dummy";
 import HeaderDesktop from "./HeaderDesktop";
 import { useState, useEffect } from "react";
+import imageCompression from "browser-image-compression";
+
+const compressAndConvertToBase64 = (file) => {
+  const options = {
+    maxSizeMB: 0.5,
+    maxWidthOrHeight: 400,
+    useWebWorker: true,
+  };
+
+  return imageCompression(file, options)
+    .then((compressedFile) => {
+      return imageCompression.getDataUrlFromFile(compressedFile);
+    })
+    .then((base64) => {
+      return base64;
+    });
+};
 
 export default function AddDesktop() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null); // 업로드된 파일
+  const [base64Image, setBase64Image] = useState(""); // Base64 저장용
   const [fileName, setFileName] = useState("선택된 파일 없음");
-
   const [verified, setVerified] = useState(false);
-
-  // useEffect(() => {
-  //   const checkVerify = async () => {
-  //     try {
-  //       console.log("앙앙앙");
-  //       const res = await fetch("/api/user/verify", {
-  //         method: "GET",
-  //         credentials: "include",
-  //       });
-  //       console.log("도라에몽");
-
-  //       setVerified(res.ok);
-  //       console.log("verified:", res.ok);
-  //     } catch (error) {
-  //       console.log("verify error:", error);
-  //       setVerified(false);
-  //     }
-  //   };
-  //   console.log("난 네가 정말 좋아");
-  //   checkVerify();
-  // }, []);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
       setFileName(file.name);
+
+      compressAndConvertToBase64(file)
+        .then((base64) => {
+          setBase64Image(base64);
+          console.log("base64 결과:", base64);
+        })
+        .catch((err) => console.error("압축 오류:", err));
     } else {
       setSelectedFile(null);
       setFileName("선택된 파일 없음");
+      setBase64Image("");
     }
   };
+
   const handleSubmit = () => {
     try {
       console.log("click");
@@ -53,7 +58,7 @@ export default function AddDesktop() {
         body: JSON.stringify({
           title: title,
           content: content,
-          thumbnail: "",
+          thumbnail: base64Image,
         }),
       })
         .then((res) => res.json())

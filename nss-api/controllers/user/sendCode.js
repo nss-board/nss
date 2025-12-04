@@ -1,7 +1,7 @@
-import crypto from "crypto";
+import crypto, { verify } from "crypto";
 import CryptoJS from "crypto-js";
 
-function signup(req, res) {
+export default function sendCode(req, res) {
   const form_data = req.body;
 
   verifyData(form_data); // <-- body 값 검증 단계 필요
@@ -15,10 +15,10 @@ function checkDup(email) {}
 async function sendSMS(phoneNumber) {
   const code = String(Math.floor(Math.random() * 900000) + 100000);
   const expire = new Date(Date.now() + 5 * 60 * 1000);
-  const phone = "01056328583";
+  // const phone = "01056328583";
   // DB에 전화번호 인증 로그 저장
   await PhoneAuth.create({
-    phone,
+    phoneNumber,
     code,
     expire,
     isVerified: 0,
@@ -82,7 +82,7 @@ async function sendSMS(phoneNumber) {
       content: `[본인인증] 인증번호 ${code} 를 입력해주세요.`,
       messages: [
         {
-          to: phone,
+          to: phoneNumber,
         },
       ],
     }),
@@ -92,5 +92,3 @@ async function sendSMS(phoneNumber) {
 
   res.json({ message: "sent" });
 }
-
-export { signup, sendSMS };

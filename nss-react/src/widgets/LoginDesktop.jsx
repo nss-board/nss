@@ -1,7 +1,6 @@
 import { useState } from "react";
 import HeaderDesktop from "./HeaderDesktop";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 export default function LoginDesktop() {
   const [id, setId] = useState("");

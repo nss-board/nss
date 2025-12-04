@@ -20,7 +20,7 @@ export const Post = sequelize.define("Post", {
     allowNull: false,
   },
   thumbnail: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT("long"),
     allowNull: true,
   },
   likes: {

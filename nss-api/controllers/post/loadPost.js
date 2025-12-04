@@ -1,23 +1,14 @@
-import { User } from "../../models/User.js";
+import { Post } from "../../models/Post.js";
 
-export default function loadPost(req, res) {
-  count = req.body.cnt;
-  page = res.body.page;
-
-  const n = count * (page - 1) + 1;
-  const m = count * page;
-
-  const offset = n - 1;
-  const limit = m - n + 1;
-
-  const posts = Post.findAll({
-    order: [["id", "DESC"]], // 최근순
-    offset: offset,
-    limit: limit,
+export default async function loadPost(req, res) {
+  const posts = await Post.findAll({
+    // order: [["id", "DESC"]], // 최근순
+    // offset: offset,
+    // limit: limit,
   });
 
-  posts.comment = JSON.stringify(posts.comment);
+  // posts.comment = JSON.stringify(posts.comment);
 
-  postList = { ...posts };
-  res.json(postList);
+  // const postList = { ...posts };
+  res.json(posts);
 }
