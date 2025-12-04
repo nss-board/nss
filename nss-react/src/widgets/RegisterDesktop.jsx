@@ -28,11 +28,12 @@ export default function RegisterDesktop() {
             <div className="register-phone-wrapper">
               <div className="register-label">핸드폰 번호 :</div>
               <input type="text" className="register-input" />
-              <div className="register-phone-confirm-button">SMS 인증</div>
+              <div className="register-phone-confirm-button">인증번호 발송</div>
             </div>
             <div className="register-verify-wrapper">
               <div className="register-label">인증번호 :</div>
               <input type="text" className="register-input" />
+              <div className="register-phone-confirm-button">인증하기</div>
             </div>
             <div className="register-buttons-wrapper">
               <div
